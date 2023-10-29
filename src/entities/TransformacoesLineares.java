@@ -32,7 +32,7 @@ public class TransformacoesLineares {
         // Extrair os elementos da matriz para um novo vetor
         ArrayList<Float> resultElements = resultMatrix.getElementos();
 
-        resultElements.remove(resultElements.size() -1);
+        resultElements.remove(resultElements.size() - 1);
         return new Vector(resultElements.size(), resultElements);
     }
 
@@ -55,7 +55,77 @@ public class TransformacoesLineares {
         return new Vector(resultElements.size(), resultElements);
     }
 
+    public static Vector rotation2D(Vector vector, double angle) {
+        double cosTheta = Math.cos(angle);
+        double sinTheta = Math.sin(angle);
 
+        ArrayList<Float> elementos = new ArrayList<>(vector.getElementos());
+
+        double x = elementos.get(0);
+        double y = elementos.get(1);
+
+        double newX = x * cosTheta - y * sinTheta;
+        double newY = x * sinTheta + y * cosTheta;
+
+        elementos.set(0, (float) newX);
+        elementos.set(1, (float) newY);
+
+        return new Vector(vector.getDim(), elementos);
+    }
+
+    public static Vector rotation3DX(Vector vector, double angle) {
+        double cosTheta = Math.cos(angle);
+        double sinTheta = Math.sin(angle);
+
+        ArrayList<Float> elementos = new ArrayList<>(vector.getElementos());
+
+        double y = elementos.get(1);
+        double z = elementos.get(2);
+
+        double newY = y * cosTheta - z * sinTheta;
+        double newZ = y * sinTheta + z * cosTheta;
+
+        elementos.set(1, (float) newY);
+        elementos.set(2, (float) newZ);
+
+        return new Vector(vector.getDim(), elementos);
+    }
+
+    public static Vector rotation3DY(Vector vector, double angle) {
+        double cosTheta = Math.cos(angle);
+        double sinTheta = Math.sin(angle);
+
+        ArrayList<Float> elementos = new ArrayList<>(vector.getElementos());
+
+        double x = elementos.get(0);
+        double z = elementos.get(2);
+
+        double newX = x * cosTheta + z * sinTheta;
+        double newZ = -x * sinTheta + z * cosTheta;
+
+        elementos.set(0, (float) newX);
+        elementos.set(2, (float) newZ);
+
+        return new Vector(vector.getDim(), elementos);
+    }
+
+    public static Vector rotation3DZ(Vector vector, double angle) {
+        double cosTheta = Math.cos(angle);
+        double sinTheta = Math.sin(angle);
+
+        ArrayList<Float> elementos = new ArrayList<>(vector.getElementos());
+
+        double x = elementos.get(0);
+        double y = elementos.get(1);
+
+        double newX = x * cosTheta - y * sinTheta;
+        double newY = x * sinTheta + y * cosTheta;
+
+        elementos.set(0, (float) newX);
+        elementos.set(1, (float) newY);
+
+        return new Vector(vector.getDim(), elementos);
+    }
 
 
 }
