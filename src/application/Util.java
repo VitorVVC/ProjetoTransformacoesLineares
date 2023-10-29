@@ -2,13 +2,20 @@ package application;
 
 import entities.Vector;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 import static entities.TransformacoesLineares.*;
 import static entities.TransformacoesLineares.rotation2D;
 
 public class Util {
 
+    public static Scanner sc = new Scanner(System.in);
+    public static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("'Date: 'dd/MM/yyyy 'Hour: 'HH:mm");
 
     public static void printSetado() {
         // Declarando vetor de 2 elementos
@@ -125,8 +132,152 @@ public class Util {
         System.out.println("Valores: (Vetor2D, kx = 2, ky = 2)");
         System.out.println("========================");
         System.out.println("Resultado: " + shearing(vect, 2, 2));
+    }
 
+    public static void interacao() {
+        System.out.println(dtf.format(LocalDateTime.now()));
 
+        System.out.print("Qual vetor voce deseja manusear primeiramente? Exemplo -> ( 2D || 3D ): ");
+        String resp = sc.nextLine();
+
+        if (resp.equalsIgnoreCase("2D")) {
+            String manter;
+
+            do {
+                System.out.println("Crie um vetor de apenas DUAS dimensões: ");
+                System.out.print("Digite o valor de X: ");
+                float x = sc.nextFloat();
+                System.out.print("Digite o valor de Y: ");
+                float y = sc.nextFloat();
+
+                ArrayList<Float> elementos2D = new ArrayList<>();
+                elementos2D.add(x);
+                elementos2D.add(y);
+
+                Vector vector2D = new Vector(2, elementos2D);
+                sc.nextLine(); 
+
+                System.out.println("Quais métodos voce deseja realizar? ");
+                System.out.println("Exemplo: Translação, Rotação, Reflexão, Projeção ou Cisalhamento");
+                String metodo = sc.nextLine();
+
+                float dx = 0;
+                float dy = 0;
+                float angulo = 0;
+                String escolha = null;
+
+                switch (metodo.toLowerCase()) {
+                    case "translação":
+                        System.out.println("Forneça-me os valores de DX & DY");
+                        System.out.print("DX: ");
+                        dx = sc.nextFloat();
+                        System.out.print("DY: ");
+                        dy = sc.nextFloat();
+                        break;
+                    case "rotação":
+                        System.out.print("Digite o valor do angulo: ");
+                        float ang = sc.nextFloat();
+                        angulo = (float) Math.toRadians(ang);
+                        break;
+                    case "reflexão":
+                        System.out.print("Em qual coordenada você deseja operar a reflexão? ( X ou Y ): ");
+                        escolha = sc.next();
+                        if (!escolha.equalsIgnoreCase("x") && !escolha.equalsIgnoreCase("y")) {
+                            throw new InputMismatchException("Opção inválida! Use 'x' ou 'y'.");
+                        }
+                        if (escolha.equalsIgnoreCase("x")) {
+                            System.out.print("Digite o valor de DX: ");
+                            dx = sc.nextFloat();
+                        } else {
+                            System.out.print("Digite o valor de DY: ");
+                            dy = sc.nextFloat();
+                        }
+                        break;
+                    case "projeção":
+                        System.out.println("Em qual coordenada você deseja operar a projeção? ( X OU Y ): ");
+                        escolha = sc.next();
+                        if (!escolha.equalsIgnoreCase("x") && !escolha.equalsIgnoreCase("y")) {
+                            throw new InputMismatchException("Opção inválida! Use 'x' ou 'y'.");
+                        }
+                        System.out.println("Resposta " + escolha.toUpperCase() + " armazenada com sucesso!");
+                        break;
+                    case "cisalhamento":
+                        System.out.println("Em qual coordenada você deseja operar o cisalhamento? ( X, Y ou Ambas ) ");
+                        escolha = sc.next();
+                        if (!escolha.equalsIgnoreCase("x") && !escolha.equalsIgnoreCase("y") && !escolha.equalsIgnoreCase("ambas")) {
+                            throw new InputMismatchException("Opção inválida! Use 'x', 'y' ou 'ambas'.");
+                        }
+                        if (escolha.equalsIgnoreCase("x")) {
+                            System.out.print("Digite o valor de DX: ");
+                            dx = sc.nextFloat();
+                        } else if (escolha.equalsIgnoreCase("y")) {
+                            System.out.print("Digite o valor de DY: ");
+                            dy = sc.nextFloat();
+                        } else {
+                            System.out.print("Digite o valor de DX: ");
+                            dx = sc.nextFloat();
+                            System.out.print("Digite o valor de DY: ");
+                            dy = sc.nextFloat();
+                        }
+                        break;
+                    default:
+                        throw new InputMismatchException("Método inválido!");
+                }
+
+                realizarOperacao(metodo.toLowerCase(), vector2D, dx, dy, angulo, escolha);
+
+                System.out.print("Você deseja realizar mais operações? (Sim ou Não): ");
+                manter = sc.next();
+            } while (manter.equalsIgnoreCase("sim"));
+        }
+    }
+
+    public static void realizarOperacao(String metodo, Vector vector, float dx, float dy, float angulo, String escolha) {
+        switch (metodo) {
+            case "translação":
+                System.out.println("Translação realizada com sucesso!");
+                System.out.println("Vetor antes da translação: " + vector);
+                System.out.println("Vetor após translação: " + translate2D(vector, dx, dy));
+                break;
+            case "rotação":
+                System.out.println("Rotação realizada com sucesso!");
+                System.out.println("Vetor antes da rotação: " + vector);
+                System.out.println("Vetor após rotação: " + rotation2D(vector, angulo));
+                break;
+            case "reflexão":
+                System.out.println("Reflexão realizada com sucesso!");
+                System.out.println("Vetor antes da reflexão: " + vector);
+                if (escolha.equalsIgnoreCase("x")) {
+                    System.out.println("Vetor após reflexão em X: " + reflection2DX(vector));
+                } else {
+                    System.out.println("Vetor após reflexão em Y: " + reflection2DY(vector));
+                }
+                break;
+            case "projeção":
+                System.out.println("Projeção realizada com sucesso!");
+                System.out.println("Vetor antes da projeção: " + vector);
+                if (escolha.equalsIgnoreCase("x")) {
+                    System.out.println("Vetor após a projeção de X: " + projection2DX(vector));
+                } else {
+                    System.out.println("Vetor após a projeção de Y: " + projection2DY(vector));
+                }
+                break;
+            case "cisalhamento":
+                System.out.println("Cisalhamento realizado com sucesso!");
+                if (escolha.equalsIgnoreCase("x")) {
+                    System.out.println("Vetor antes do cisalhamento: " + vector);
+                    System.out.println("Vetor após cisalhamento: " + shearing(vector, dx, 0));
+                } else if (escolha.equalsIgnoreCase("y")) {
+                    System.out.println("Vetor antes do cisalhamento: " + vector);
+                    System.out.println("Vetor após cisalhamento: " + shearing(vector, 0, dy));
+                } else {
+                    System.out.println("Vetor antes do cisalhamento: " + vector);
+                    System.out.println("Vetor após cisalhamento: " + shearing(vector, dx, dy));
+                }
+                break;
+            default:
+                throw new InputMismatchException("Método inválido!");
+        }
     }
 
 
