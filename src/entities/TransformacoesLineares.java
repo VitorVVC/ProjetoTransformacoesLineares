@@ -127,5 +127,84 @@ public class TransformacoesLineares {
         return new Vector(vector.getDim(), elementos);
     }
 
+    public static Vector reflection2DX(Vector vector) {
+        ArrayList<Float> elementos = new ArrayList<>(vector.getElementos());
+        elementos.set(0, -elementos.get(0));
+        return new Vector(vector.getDim(), elementos);
+    }
+
+    public static Vector reflection2DY(Vector vector) {
+        ArrayList<Float> elementos = new ArrayList<>(vector.getElementos());
+        elementos.set(1, -elementos.get(1));
+        return new Vector(vector.getDim(), elementos);
+    }
+
+    public static Vector reflection3DX(Vector vector) {
+        ArrayList<Float> elementos = new ArrayList<>(vector.getElementos());
+        elementos.set(0, -elementos.get(0));
+        return new Vector(vector.getDim(), elementos);
+    }
+
+    public static Vector reflection3DY(Vector vector) {
+        ArrayList<Float> elementos = new ArrayList<>(vector.getElementos());
+        elementos.set(1, -elementos.get(1));
+        return new Vector(vector.getDim(), elementos);
+    }
+
+    public static Vector reflection3DZ(Vector vector) {
+        ArrayList<Float> elementos = new ArrayList<>(vector.getElementos());
+        elementos.set(2, -elementos.get(2));
+        return new Vector(vector.getDim(), elementos);
+    }
+
+    public static Vector projection2DX(Vector vector) {
+        ArrayList<Float> elementos = new ArrayList<>();
+        elementos.add(vector.getElementos().get(0));
+        elementos.add(0F);
+        return new Vector(2, elementos);
+    }
+
+    public static Vector projection2DY(Vector vector) {
+        ArrayList<Float> elementos = new ArrayList<>();
+        elementos.add(0F);
+        elementos.add(vector.getElementos().get(1));
+        return new Vector(2, elementos);
+    }
+
+    public static Vector projection3DX(Vector vector) {
+        ArrayList<Float> elementos = new ArrayList<>();
+        elementos.add(vector.getElementos().get(0));
+        elementos.add(0F);
+        elementos.add(0F);
+        return new Vector(3, elementos);
+    }
+
+    public static Vector projection3DY(Vector vector) {
+        ArrayList<Float> elementos = new ArrayList<>();
+        elementos.add(0F);
+        elementos.add(vector.getElementos().get(1));
+        elementos.add(0F);
+        return new Vector(3, elementos);
+    }
+
+    public static Vector projection3DZ(Vector vector) {
+        ArrayList<Float> elementos = new ArrayList<>();
+        elementos.add(0F);
+        elementos.add(0F);
+        elementos.add(vector.getElementos().get(2));
+        return new Vector(3, elementos);
+    }
+
+    public static Vector shearing(Vector vector, double kx, double ky) {
+        ArrayList<Float> elementos = new ArrayList<>();
+        double x = vector.getElementos().get(0);
+        double y = vector.getElementos().get(1);
+
+        elementos.add((float) (x + kx * y));
+        elementos.add((float) (y + ky * x));
+
+        return new Vector(2, elementos);
+    }
+
 
 }
