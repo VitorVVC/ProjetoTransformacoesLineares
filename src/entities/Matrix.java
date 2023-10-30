@@ -2,22 +2,30 @@ package entities;
 
 import java.util.ArrayList;
 
+import static entities.Vector.validarInt;
+
 public class Matrix {
 
+    // Classe matriz que se julgou necessária para melhoria do código
+    // Possue como atributos linhas, colunas e uma lista de elementos
     private int linhas;
     private int colunas;
 
     private ArrayList<Float> elementos;
 
+    // Construtor recebendo os atributos anteriores como parametro
+    // E há uma checagem, caso a linha * a coluna seja diferente da quantidade de elementos
+    // presentes na lista, dará um erro.
     public Matrix(int linhas, int colunas, ArrayList<Float> elementos) {
         if(linhas * colunas != elementos.size()){
-            throw new IllegalArgumentException("Erro");
+            throw new ArithmeticException("Erro");
         }
-        this.linhas = linhas;
-        this.colunas = colunas;
+        this.linhas = validarInt(linhas);
+        this.colunas = validarInt(colunas);
         this.elementos = elementos;
     }
 
+    // Métodos Getters & Setters
     public int getLinhas() {
         return linhas;
     }

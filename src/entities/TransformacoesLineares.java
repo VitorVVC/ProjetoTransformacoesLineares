@@ -35,6 +35,7 @@ public class TransformacoesLineares {
         resultElements.remove(resultElements.size() - 1);
         return new Vector(resultElements.size(), resultElements);
     }
+    // Função de translação em 3D
 
     public static Vector translate3D(Vector vector, double dx, double dy, double dz) {
         ArrayList<Float> elementos = new ArrayList<>(vector.getElementos());
@@ -55,6 +56,7 @@ public class TransformacoesLineares {
         return new Vector(resultElements.size(), resultElements);
     }
 
+    // Método para rotacionar um vetor 2D
     public static Vector rotation2D(Vector vector, double angle) {
         double cosTheta = Math.cos(angle);
         double sinTheta = Math.sin(angle);
@@ -73,6 +75,7 @@ public class TransformacoesLineares {
         return new Vector(vector.getDim(), elementos);
     }
 
+    // Método para rotacionar um vetor 3D em função do eixo X
     public static Vector rotation3DX(Vector vector, double angle) {
         double cosTheta = Math.cos(angle);
         double sinTheta = Math.sin(angle);
@@ -90,7 +93,7 @@ public class TransformacoesLineares {
 
         return new Vector(vector.getDim(), elementos);
     }
-
+    // Método para rotacionar um vetor 3D em função do eixo Y
     public static Vector rotation3DY(Vector vector, double angle) {
         double cosTheta = Math.cos(angle);
         double sinTheta = Math.sin(angle);
@@ -109,6 +112,7 @@ public class TransformacoesLineares {
         return new Vector(vector.getDim(), elementos);
     }
 
+    // Método para rotacionar um vetor 3D em função do eixo Z
     public static Vector rotation3DZ(Vector vector, double angle) {
         double cosTheta = Math.cos(angle);
         double sinTheta = Math.sin(angle);
@@ -126,37 +130,41 @@ public class TransformacoesLineares {
 
         return new Vector(vector.getDim(), elementos);
     }
-
+    // Método para refletir um vetor 2D em função do eixo X
     public static Vector reflection2DX(Vector vector) {
         ArrayList<Float> elementos = new ArrayList<>(vector.getElementos());
         elementos.set(0, -elementos.get(0));
         return new Vector(vector.getDim(), elementos);
     }
 
+    // Método para refletir um vetor 2D em função do eixo Y
     public static Vector reflection2DY(Vector vector) {
         ArrayList<Float> elementos = new ArrayList<>(vector.getElementos());
         elementos.set(1, -elementos.get(1));
         return new Vector(vector.getDim(), elementos);
     }
-
+    // Método para refletir um vetor 3D em função do eixo X
     public static Vector reflection3DX(Vector vector) {
         ArrayList<Float> elementos = new ArrayList<>(vector.getElementos());
         elementos.set(0, -elementos.get(0));
         return new Vector(vector.getDim(), elementos);
     }
 
+    // Método para refletir um vetor 3D em função do eixo Y
     public static Vector reflection3DY(Vector vector) {
         ArrayList<Float> elementos = new ArrayList<>(vector.getElementos());
         elementos.set(1, -elementos.get(1));
         return new Vector(vector.getDim(), elementos);
     }
 
+    // Método para refletir um vetor 3D em função do eixo Z
     public static Vector reflection3DZ(Vector vector) {
         ArrayList<Float> elementos = new ArrayList<>(vector.getElementos());
         elementos.set(2, -elementos.get(2));
         return new Vector(vector.getDim(), elementos);
     }
 
+    // Método para projetar um eixo X em um vetor 2D
     public static Vector projection2DX(Vector vector) {
         ArrayList<Float> elementos = new ArrayList<>();
         elementos.add(vector.getElementos().get(0));
@@ -164,6 +172,7 @@ public class TransformacoesLineares {
         return new Vector(2, elementos);
     }
 
+    // Método para projetar um eixo Y em um vetor 2D
     public static Vector projection2DY(Vector vector) {
         ArrayList<Float> elementos = new ArrayList<>();
         elementos.add(0F);
@@ -171,6 +180,7 @@ public class TransformacoesLineares {
         return new Vector(2, elementos);
     }
 
+    // Método para projetar um eixo X em um vetor 3D
     public static Vector projection3DX(Vector vector) {
         ArrayList<Float> elementos = new ArrayList<>();
         elementos.add(vector.getElementos().get(0));
@@ -179,6 +189,7 @@ public class TransformacoesLineares {
         return new Vector(3, elementos);
     }
 
+    // Método para projetar um eixo Y em um vetor 3D
     public static Vector projection3DY(Vector vector) {
         ArrayList<Float> elementos = new ArrayList<>();
         elementos.add(0F);
@@ -187,6 +198,7 @@ public class TransformacoesLineares {
         return new Vector(3, elementos);
     }
 
+    // Método para projetar um eixo Z em um vetor 3D
     public static Vector projection3DZ(Vector vector) {
         ArrayList<Float> elementos = new ArrayList<>();
         elementos.add(0F);
@@ -195,6 +207,7 @@ public class TransformacoesLineares {
         return new Vector(3, elementos);
     }
 
+    // Método para "cisalhar" um vetor 2D em qualquer eixo, oque inclue obviamente ambos na mesma chamada de método
     public static Vector shearing(Vector vector, double kx, double ky) {
         ArrayList<Float> elementos = new ArrayList<>();
         double x = vector.getElementos().get(0);
