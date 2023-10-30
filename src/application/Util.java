@@ -17,6 +17,7 @@ public class Util {
     public static Scanner sc = new Scanner(System.in);
     public static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("'Date: 'dd/MM/yyyy 'Hour: 'HH:mm");
 
+    // Método pra fazer print de todas as transformações lineares pedidas no PDF do exercicio.
     public static void printSetado() {
         // Declarando vetor de 2 elementos
         ArrayList<Float> elementos = new ArrayList<>();
@@ -41,7 +42,6 @@ public class Util {
         System.out.println("||||||||||||||||||||||||");
         System.out.println("Métodos para translação: ");
         System.out.println("||||||||||||||||||||||||");
-
         System.out.println("========================");
         System.out.println("Vetores Originais: ");
         System.out.println("Vetor 2D: " + vect.toString());
@@ -134,12 +134,14 @@ public class Util {
         System.out.println("Resultado: " + shearing(vect, 2, 2));
     }
 
+    // Método para receber dados do usuário
     public static void interacao() {
         System.out.println(dtf.format(LocalDateTime.now()));
 
         System.out.print("Qual vetor voce deseja manusear primeiramente? Exemplo -> ( 2D || 3D ): ");
         String resp = sc.nextLine();
 
+        // Caso a resposta seja 2D ele inicia métodos para receber os valores de um VETOR 2D
         if (resp.equalsIgnoreCase("2D")) {
             String manter;
             do {
@@ -152,14 +154,16 @@ public class Util {
                 ArrayList<Float> elementos2D = new ArrayList<>();
                 elementos2D.add(x);
                 elementos2D.add(y);
-
+                // Cria este vetor
                 Vector vector2D = new Vector(2, elementos2D);
                 sc.nextLine();
 
+                // Pede e apartir da resposta faz os métodos que é possivel com um vetor de duas dimensões
                 System.out.println("Quais métodos voce deseja realizar? ");
                 System.out.println("Exemplo: Translação, Rotação, Reflexão, Projeção ou Cisalhamento");
                 String metodo = sc.nextLine();
 
+                // Declarações de váriaveis.
                 float dx = 0;
                 float dy = 0;
                 float angulo = 0;
@@ -227,12 +231,15 @@ public class Util {
                     default:
                         throw new InputMismatchException("Método inválido!");
                 }
-
+                // Passa todas as variaveis antes declaradas e que dependendo do método serão reescritas
+                // para uma função que resolve o método baseado na resposta
                 realizarOperacao2D(metodo.toLowerCase(), vector2D, dx, dy, angulo, escolha);
-
+                // Pergunta para o usuário se ele deseja fazer outra operação, caso queira
+                // Ele reinicia desde o 'do'.
                 System.out.print("Você deseja realizar mais operações? (Sim ou Não): ");
                 manter = sc.next();
             } while (manter.equalsIgnoreCase("sim"));
+            // Caso a resposta seja um Vetor 3D ele fará os mesmos processos anteriores porém para um vetor 3D
         } else if (resp.equalsIgnoreCase("3D")) {
             String manter3D = "sim";
             do {
@@ -339,6 +346,8 @@ public class Util {
         }
     }
 
+    // Método que realiza as operações baseadas no que foi escrito pelo usuario
+    // apenas para operações 2D
     public static void realizarOperacao2D(String metodo, Vector vector, float dx, float dy, float angulo, String escolha) {
         switch (metodo) {
             case "translação":
@@ -387,6 +396,7 @@ public class Util {
         }
     }
 
+    // Similar a anterior porém adaptada para vetores 3D
     public static void realizarOperacao3D(String metodo, Vector vector, float dx, float dy, float dz, float angulo, String escolha) {
         switch (metodo) {
             case "translação":
