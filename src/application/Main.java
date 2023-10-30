@@ -9,6 +9,8 @@ public class Main {
     public static void main(String[] args) {
         Locale.setDefault(Locale.US);
 
+        // Trabalho Cenário DOIS ( AV2 ) --> Algebra Linear.
+
         // Puxa o método 'printSetado();' que nada mais é que o trabalho em um print.
         printSetado();
 
